@@ -1,5 +1,3 @@
-# CryptoHustleLite
-
 # Lab 5: Crypto Hustle Lite
 
 # Overview
