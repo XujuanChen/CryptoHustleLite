@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import '../App.css'
 const mySecret = import.meta.env['VITE_API_KEY']
 
 const CoinInfo = ({ image, name, symbol }) => {
@@ -16,7 +17,7 @@ const CoinInfo = ({ image, name, symbol }) => {
       <div>
         {price ? ( // rendering only if API call actually returned us data
           <li className="main-list" key={symbol}>
-       <img
+       <img className="icons"
          className="icons"
          src={`https://www.cryptocompare.com${image}`}
          alt={`Small icon for ${name} crypto coin`}
