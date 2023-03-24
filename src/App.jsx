@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import CoinInfo from "./Components/coinInfo";
+import SideNav from "./Components/sideNav";
+
 
 function App() {
 const mySecret = import.meta.env['VITE_API_KEY']
@@ -38,6 +40,7 @@ const [searchInput, setSearchInput] = useState("");
   console.log(list.Data)
   return (
     <div className="whole-page">
+      <SideNav  />
       <h1>My Crypto List</h1>
   <input
     type="text"

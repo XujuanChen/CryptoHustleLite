@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import '../App.css'
 const mySecret = import.meta.env['VITE_API_KEY']
 
 const CoinInfo = ({ image, name, symbol }) => {
