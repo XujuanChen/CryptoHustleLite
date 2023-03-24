@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
+import CoinInfo from "./Components/coinInfo";
 
 function App() {
 const mySecret = import.meta.env['VITE_API_KEY']
@@ -14,7 +15,6 @@ const url = "https://min-api.cryptocompare.com/data/all/coinlist?&api_key="+mySe
     const json = await response.json();
     setList(json);
     };
-
     fetchAllCoinData().catch(console.error);
   }, []);
   console.log(list.Data)
@@ -24,9 +24,11 @@ const url = "https://min-api.cryptocompare.com/data/all/coinlist?&api_key="+mySe
           <ul>
             {list && Object.entries(list.Data).map(([coin]) =>
               list.Data[coin].PlatformType === "blockchain" ? (
-                  <li key={list.Data[coin].FullName}> 
-                    {list.Data[coin].FullName}
-                  </li>
+                <CoinInfo
+                  image={list.Data[coin].ImageUrl}
+                  name={list.Data[coin].FullName}
+                  symbol={list.Data[coin].Symbol}
+                  />
                 ) : null
             )}
           </ul>
