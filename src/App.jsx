@@ -8,7 +8,25 @@ const url = "https://min-api.cryptocompare.com/data/all/coinlist?&api_key="+mySe
   
   const [count, setCount] = useState(0)
   const [list, setList] = useState('')
+const [filteredResults, setFilteredResults] = useState([]);
+const [searchInput, setSearchInput] = useState("");
+  
+  const searchItems = searchValue => {
+    setSearchInput(searchValue);
+    if (searchValue !== "") {
+      const filteredData = Object.keys(list.Data).filter((item) => 
+        Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchValue.toLowerCase())
+      )
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults(Object.keys(list.Data));
+    }
+  };
 
+  
   useEffect(() => {
     const fetchAllCoinData = async () => {
     const response = await fetch(url);
@@ -21,16 +39,31 @@ const url = "https://min-api.cryptocompare.com/data/all/coinlist?&api_key="+mySe
   return (
     <div className="whole-page">
       <h1>My Crypto List</h1>
+  <input
+    type="text"
+    placeholder="Search..."
+    onChange={(inputString) => searchItems(inputString.target.value)}
+  />
           <ul>
-            {list && Object.entries(list.Data).map(([coin]) =>
-              list.Data[coin].PlatformType === "blockchain" ? (
-                <CoinInfo
-                  image={list.Data[coin].ImageUrl}
-                  name={list.Data[coin].FullName}
-                  symbol={list.Data[coin].Symbol}
-                  />
-                ) : null
-            )}
+ {searchInput.length > 0
+      ? filteredResults.map((coin) => 
+            list.Data[coin].PlatformType === "blockchain" ? 
+            <CoinInfo
+              image={list.Data[coin].ImageUrl}
+              name={list.Data[coin].FullName}
+              symbol={list.Data[coin].Symbol}
+            />
+            : null
+        )
+      : list && Object.entries(list.Data).map(([coin]) => 
+            list.Data[coin].PlatformType === "blockchain" ? 
+            <CoinInfo
+              image={list.Data[coin].ImageUrl}
+              name={list.Data[coin].FullName}
+              symbol={list.Data[coin].Symbol}
+            />
+            : null
+        )}
           </ul>
     </div>
   )
